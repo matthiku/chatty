@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <a href="#" class="navbar-brand">Chatty</a>
+      <a href="/" class="navbar-brand">Chatty</a>
     </div>
     
     <div class="collapse navbar-collapse">

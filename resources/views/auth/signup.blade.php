@@ -3,7 +3,7 @@
 @section('content')
 	<div class="row">
 	    <div class="col-lg-6">
-	        <form class="form-vertical" role="form" method="post" action="#">
+	        <form class="form-vertical" role="form" method="post" action="{{ route('auth.signup') }}">
 	            <div class="form-group">
 	                <label for="email" class="control-label">Your email address</label>
 	                <input type="text" name="email" class="form-control" id="email" value="">
@@ -19,6 +19,7 @@
 	            <div class="form-group">
 	                <button type="submit" class="btn btn-default">Sign up</button>
 	            </div>
+	            <input type="hidden" name="_token" value="{{ Session::token() }}">
 	        </form>
 	    </div>
 	</div>
