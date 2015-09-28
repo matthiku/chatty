@@ -28,7 +28,7 @@ return [
     |
     */
 
-    'model' => Chatty\User::class,
+    'model' => Chatty\Models\User::class,
 
     /*
     |--------------------------------------------------------------------------
