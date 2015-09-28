@@ -45,6 +45,33 @@ class User extends Model implements AuthenticatableContract
     ];
 
 
+
+
+    /**
+     *
+     * Relationships
+     *
+     */
+    public function friendsOfMine() 
+    {
+        return $this->belongsToMany('Chatty\Models\User', 'friends', 'user_id', 'friend_id');
+    }
+
+    public function friendOf()
+    {
+        return $this->belongsToMany('Chatty\Models\User', 'friends', 'friend_id', 'user_id');
+    }
+
+    public function friends()
+    {
+        return $this->friendsOfMine()->wherePivot('accepted', true)->get()
+            ->merge( $this->friendOf()->wherePivot('accepted', true )->get() );
+    }
+
+
+
+
+
     /**
      *
      * HELPER functions  to get various user name combinations
