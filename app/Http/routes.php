@@ -12,6 +12,7 @@
 */
 
 
+
 /**
  * Home Route
  */
@@ -19,6 +20,7 @@ Route::get('/', [
 	'uses' => '\Chatty\Http\Controllers\HomeController@index',
 	'as'   => 'home',
 ]);
+
 
 
 
@@ -30,6 +32,7 @@ Route::get('/signup', [
 	'as'   => 'auth.signup',
 	'middleware' => ['guest'],
 ]);
+
 Route::post('/signup', [
 	'uses' => '\Chatty\Http\Controllers\AuthController@postSignup',
 	'middleware' => ['guest'],
@@ -42,6 +45,7 @@ Route::get('/signin', [
 	'as'   => 'auth.signin',
 	'middleware' => ['guest'],
 ]);
+
 Route::post('/signin', [
 	'uses' => '\Chatty\Http\Controllers\AuthController@postSignin',
 	'middleware' => ['guest'],
@@ -56,6 +60,7 @@ Route::get('/signout', [
 
 
 
+
 /**
  * SEARCH
  */
@@ -63,6 +68,8 @@ Route::get('/search', [
 	'uses' => '\Chatty\Http\Controllers\SearchController@getResults',
 	'as'   => 'search.results',
 ]);
+
+
 
 
 
@@ -81,6 +88,7 @@ Route::get('/profile/edit', [
 	'as'   => 'profile.edit',
 	'middleware' => 'auth',
 ]);
+
 Route::post('/profile/edit', [
 	'uses' => '\Chatty\Http\Controllers\ProfileController@postEdit',
 	'middleware' => 'auth',
@@ -89,3 +97,24 @@ Route::post('/profile/edit', [
 
 
 
+
+/**
+ * FRIENDS
+ */
+Route::get('/friends', [
+	'uses' => '\Chatty\Http\Controllers\FriendController@getIndex',
+	'as'   => 'friends.index',
+	'middleware' => 'auth',
+]);
+
+Route::get('/friends/add/{username}', [
+	'uses' => '\Chatty\Http\Controllers\FriendController@getAdd',
+	'as'   => 'friends.add',
+	'middleware' => 'auth',
+]);
+
+Route::get('/friends/accept/{username}', [
+	'uses' => '\Chatty\Http\Controllers\FriendController@getAccept',
+	'as'   => 'friends.accept',
+	'middleware' => 'auth',
+]);
