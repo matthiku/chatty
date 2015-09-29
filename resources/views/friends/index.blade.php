@@ -19,9 +19,11 @@
 				<p>You currently have no friend requests.</p>
 			@else 
 				@foreach ($friendRequests as $user)
+					<div class="pull-right">
+						<a href="{{ route('friends.accept', ['username' => $user->username]) }}" class="btn btn-primary btn-xs">Accept</a>
+					</div>
 					@include('user/partials/userblock')
-					<br>
-					<a href="{{ route('friends.accept', ['username' => $user->username]) }}" class="btn btn-primary btn-xs">Accept</a>
+					<hr />
 				@endforeach
 			@endif
 		</div>

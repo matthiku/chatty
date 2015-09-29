@@ -118,3 +118,18 @@ Route::get('/friends/accept/{username}', [
 	'as'   => 'friends.accept',
 	'middleware' => 'auth',
 ]);
+
+
+
+
+/**
+ *  STATUS  updates
+ */
+Route::post('/status', [
+	'uses' => '\Chatty\Http\Controllers\StatusController@postStatus',
+	'as'   => 'status.post',
+	'middleware' => 'auth',
+]);
+
+
+

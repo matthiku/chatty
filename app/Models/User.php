@@ -86,6 +86,10 @@ class User extends Model implements AuthenticatableContract
 
 
 
+    public function statuses()
+    {
+        return $this->hasMany('Chatty\Models\Status', 'user_id');
+    }
 
 
 

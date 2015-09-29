@@ -33,6 +33,13 @@ class FriendController extends Controller
 		// get the requested user's DB object
 		$user = User::where('username', $username)->first();
 
+		// A user can't send himself a request...
+		if ( Auth::user()->id === $user->id ) {
+			return redirect()
+				->route('home')
+				->with('info', 'Are you narcissistic? :)');
+		}
+
 		// check if there was a request pending
 		if (!$user) {
 			return redirect()
@@ -80,11 +87,10 @@ class FriendController extends Controller
 				->with('info', 'No friend request found from this user');
 		}
 
-		// check if there is a friend request between the two
-		if ( ! Auth::user()->hasFriendRequestPending($user) && ! $user->hasFriendRequestPending(Auth::user()) ) {
+		// check if there IS a friend request between the two
+		if ( ! Auth::user()->hasFriendRequestReceived($user) ) {
 			return redirect()
-				->route('profile.index', ['username' => $username])
-				->with('info', 'There was no friend request pending with this user!');
+				->route('profile.index', ['username' => $username]);
 		}
 
 		// check if they are already friends
