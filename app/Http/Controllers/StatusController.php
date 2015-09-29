@@ -25,4 +25,13 @@ class StatusController extends Controller
 			->route('home')
 			->with('info', 'Your status has been updated.');
 	}
+
+
+	public function postReply(Request $request, $statusId) {
+
+		$this->validate($request, [
+			'status' => 'required|max:1000'
+		]);
+		
+	}	
 }
