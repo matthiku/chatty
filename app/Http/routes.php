@@ -138,4 +138,12 @@ Route::post('/status/{statusId}/reply', [
 ]);
 
 
+Route::get('/status/{statusId}/like', [
+	'uses' => '\Chatty\Http\Controllers\StatusController@getLike',
+	'as'   => 'status.like',
+	'middleware' => 'auth',
+]);
+
+
+
 

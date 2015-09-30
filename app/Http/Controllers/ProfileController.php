@@ -9,6 +9,8 @@ use Auth;
 
 class ProfileController extends Controller
 {
+
+
 	public function getProfile($username) 
 	{
 		$user = User::where('username', $username)->first();
@@ -17,15 +19,27 @@ class ProfileController extends Controller
 			abort(404);
 		}
 
+		// provide data for the timeline of this user
+		$statuses = $user->statuses()->notReply()
+				->orderBy('created_at', 'desc')
+				->paginate(10);
+
 		return view('profile.index')
-			->with('user', $user);
+			->with('user', $user )
+			->with('statuses', $statuses )
+			->with('authUserIsFriend', Auth::user()->isFriendsWith($user) );
 	}
+
+
 
 
 	public function getEdit() 
 	{
 		return view('profile.edit');
 	}
+
+
+
 
 	public function postEdit(Request $request) 
 	{
@@ -45,5 +59,7 @@ class ProfileController extends Controller
 			->route('profile.edit')
 			->with('info', 'Your profile has been updated.');
 	}
+
+
 
 }

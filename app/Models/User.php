@@ -2,6 +2,8 @@
 
 namespace Chatty\Models;
 
+use Chatty\Models\Status;
+
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -46,6 +48,15 @@ class User extends Model implements AuthenticatableContract
 
 
 
+    // Relationship to STATUS table
+
+    public function statuses()
+    {
+        return $this->hasMany('Chatty\Models\Status', 'user_id');
+    }
+
+
+
 
 
 
@@ -86,16 +97,11 @@ class User extends Model implements AuthenticatableContract
 
 
 
-    public function statuses()
-    {
-        return $this->hasMany('Chatty\Models\Status', 'user_id');
-    }
-
 
 
     /**
      *
-     * Relationships
+     * Relationships with FRIENDS table
      *
      */
     public function friendsOfMine() 
@@ -158,5 +164,14 @@ class User extends Model implements AuthenticatableContract
     }
 
 
+    // find out if a user has already liked a certain status
+    public function hasLikedStatus(Status $status)
+    {
+        return (bool) $status->likes
+            ->where('likeable_id', $status->id)
+            ->where('likeable_type', get_class($status))
+            ->where('user_id', $this->id)
+            ->count();
+    }
 
 }
